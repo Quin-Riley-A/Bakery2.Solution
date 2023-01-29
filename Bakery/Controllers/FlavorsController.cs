@@ -17,7 +17,7 @@ namespace Bakery.Controllers
     private readonly BakeryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(UserManager<ApplicationUser> userManager, RecipeBoxContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, BakeryContext db)
     {
       _userManager = userManager;
       _db = db;
@@ -81,7 +81,7 @@ namespace Bakery.Controllers
 
     public ActionResult Delete(int id)
     {
-      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId = id);
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
     [HttpPost, ActionName("Delete")]
