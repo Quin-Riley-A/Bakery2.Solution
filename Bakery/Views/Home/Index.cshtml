@@ -1,0 +1,45 @@
+@{
+  ViewData["Title"] = "Home Page";
+}
+
+@using Bakery.Models;
+
+@if (User.Identity.IsAuthenticated)
+{
+	<p> Hello, @User.Identity.Name! | @Html.ActionLink("Account Managment", "Index", "Account")</p>
+}
+else
+{
+	<p>Log in: @Html.ActionLink("Log In", "Login", "Account") </p>
+  <p> or Register a New Account: @Html.ActionLink("Create account", "Register", "Account")</p>
+}
+
+<div class="text-center">
+	<h1 class="display-4">Welcome Friends of Pierre</h1>
+
+	<h4>Flavors</h4>
+	<p>@Html.ActionLink("Flavors", "Index", "Flavors")</p>
+	@if (Model["flavors"].Length == 0)
+	{
+		<p>There are no currently flavors in listed.</p>
+	}
+	<ul>
+	@foreach (Flavor flave in Model["flavors"])
+	{
+		<li>@Html.ActionLink(@flave.FlavorName, "Details", "Flavors", new { id = @flave.FlavorId })</li>
+	}
+	</ul>
+
+	<h4>Treats</h4>
+	<p>@Html.ActionLink("Treats", "Index", "Treats")</p>
+	@if (Model["treats"].Length == 0)
+	{
+		<p>There are no currently treats in listed.</p>
+	}
+	<ul>
+	@foreach (Treat treat in Model["treats"])
+	{
+		<li>@Html.ActionLink(@treat.TreatName, "Details", "Treats", new { id = @treat.TreatId })</li>
+	}
+	</ul>
+</div>
