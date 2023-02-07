@@ -1,0 +1,16 @@
+@{
+  ViewData["Title"] = "Home Page";
+}
+
+@model Bakery.Models.Treat
+
+<h2>Delete this treat?</h2>
+
+@Html.DisplayNameFor(model => model.TreatName) : @Html.DisplayFor(model => model.TreatName)
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete"/>
+}
+
+<p>@Html.ActionLink("Treat List", "Index")</p>
+<p>@Html.ActionLink("Return to Homepage", "Index", "Home")</p>
