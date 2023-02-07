@@ -1,0 +1,39 @@
+@{
+  ViewData["Title"] = "Home Page";
+}
+
+@using Bakery.Models
+@model Bakery.Models.Flavor
+
+<h2>Flavor Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.FlavorName) : @Html.DisplayFor(model => model.FlavorName)</h3>
+
+@if (@Model.JoinEntities.Count == 0)
+{
+  <p>@Html.DisplayFor(model => model.FlavorName) is not currently associated with any Treats</p>
+}
+else
+{
+  <h4>The flavor @Html.DisplayFor(model => model.FlavorName) is used in the following treats:</h4>
+  <ol>
+  @foreach(TreatFlavor join in Model.JoinEntities)
+  {
+    <li>@join.Treat.TreatName</li>
+    @using (Html.BeginForm("DeleteJoin", "Flavors"))
+    {
+      @Html.Hidden("joinId", @join.TreatFlavorId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ol>
+}
+
+<hr />
+
+<p>@Html.ActionLink("Flavor List", "Index")</p>
+<p>@Html.ActionLink("Add flavor", "Create")</p>
+<p>@Html.ActionLink("Edit this flavor", "Edit", new { id = Model.FlavorId})</p>
+<p>@Html.ActionLink("Associate a Treat with this Flavor", "AddTreat", new { id = Model.FlavorId})</p>
+<p>@Html.ActionLink("Delete this Flavor", "Delete", new { id = Model.FlavorId })</p>
+<p>@Html.ActionLink("Return to Homepage", "Index", "Home")</p>
